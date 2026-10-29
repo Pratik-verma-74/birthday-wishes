@@ -6,6 +6,7 @@ Status: Completed & Verified
 [x] Task 3: Build Web Audio Engine (synthesized sound effects: chimes, applause, pops, blow sound, birthday melody)
 [x] Task 4: Build Three.js 3D Interactive Background (floating 3D hearts & glowing particle constellation)
 [x] Task 5: Build Hero Unlock screen, Interactive 3D Cake & Candle Blow mechanics
-[x] Task 6: Build 4-Year Friendship Showcase & 3D Touch-interactive Photo Carousel (using Tanya's 5 photos)
+[x] Task 6: Build 4-Year Friendship Showcase & 3D Touch-interactive Photo Carousel (using Tanya's 6 photos, smart face framing)
 [x] Task 7: Build 3D Wax Sealed Envelope & Heartfelt Letter + Surprise Gift Box with Floating Balloons
 [x] Task 8: Verification, Live Testing via Local Server, CodeRabbit Review & Commit
+[x] Task 9: Personalized from Pratik & added new 6th friend memory photo

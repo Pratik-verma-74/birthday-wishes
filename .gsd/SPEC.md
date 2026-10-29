@@ -36,3 +36,4 @@ Create a breathtaking, mobile-first, 3D animated interactive Birthday surprise w
    - Cross-browser syntax & responsiveness check.
    - CodeRabbit audit for security, zero broken links, performance, and accessibility.
    - Git commits for each verified slice.
+
