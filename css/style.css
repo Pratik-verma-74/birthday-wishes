@@ -1155,6 +1155,95 @@ html, body {
 }
 
 /* ========================================================
+   SECTION 6: GOLDEN SCRATCH CARDS
+   ======================================================== */
+.scratch-section {
+  text-align: center;
+}
+
+.scratch-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 440px;
+  margin: 10px auto 0 auto;
+}
+
+.scratch-card-box {
+  position: relative;
+  width: 100%;
+  min-height: 185px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(249, 212, 35, 0.25);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.scratch-card-inner {
+  width: 100%;
+  min-height: 185px;
+  background: linear-gradient(135deg, rgba(42, 16, 74, 0.95) 0%, rgba(20, 8, 38, 0.95) 100%);
+  border: 2px solid rgba(249, 212, 35, 0.6);
+  border-radius: 20px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.scratch-wish-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 0 10px rgba(249, 212, 35, 0.5));
+}
+
+.scratch-wish-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.scratch-wish-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+.scratch-wish-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255, 42, 133, 0.25), rgba(155, 81, 224, 0.25));
+  border: 1px solid var(--card-border);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--rose-light);
+  letter-spacing: 0.5px;
+}
+
+.scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  z-index: 5;
+  touch-action: none;
+  cursor: grab;
+}
+
+/* ========================================================
    FOOTER: FIREWORKS TOUCH CANVAS & CREDITS
    ======================================================== */
 .footer-wrap {
