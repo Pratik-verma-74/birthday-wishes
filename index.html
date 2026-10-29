@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0515">
+  <title>Happy Birthday Tanya ✨ | 4 Years of Friendship</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Sacramento&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 3D Three.js Background Canvas -->
+  <canvas id="three-canvas"></canvas>
+
+  <!-- 2D Touch Sparkles & Fireworks Canvas -->
+  <canvas id="sparkle-canvas"></canvas>
+
+  <!-- Ambient Cosmic Glow -->
+  <div class="cosmic-glow"></div>
+
+  <!-- Floating Audio Player Controller -->
+  <div class="audio-controller paused" id="audio-controller" title="Tap to toggle music">
+    <div class="audio-bars">
+      <div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+    </div>
+    <span class="audio-label" id="audio-text">Music: Tap to Play 🎵</span>
+  </div>
+
+  <!-- ========================================================
+       SCREEN 1: CINEMATIC TAP-TO-UNLOCK SCREEN
+       ======================================================== -->
+  <div class="lock-screen" id="lock-screen">
+    <div class="sparkle-icon">✨🎂✨</div>
+    <div class="lock-title-sub">A Very Special Surprise</div>
+    <h1 class="lock-title-main">Happy Birthday<br>Tanya!</h1>
+    <p class="lock-desc">
+      Today marks your special day and the celebration of our 
+      <span class="lock-highlight">4 Golden Years of Friendship</span>. 
+      Tap below to unlock your surprise experience! 💖
+    </p>
+    <button class="unlock-btn" id="unlock-btn">
+      <span>✨ Tap to Open Surprise ✨</span>
+    </button>
+  </div>
+
+  <!-- ========================================================
+       MAIN CELEBRATION CONTENT
+       ======================================================== -->
+  <main class="main-wrapper">
+
+    <!-- SECTION 1: HERO & 3D INTERACTIVE CAKE -->
+    <section class="hero-card">
+      <div class="hero-badge">OCTOBER 29 • THE QUEEN'S DAY 👑</div>
+      <h1 class="hero-name">Happy Birthday Tanya!</h1>
+      <div class="hero-subtitle">May your smile shine brighter every day ✨</div>
+
+      <!-- 3D Layered Cake -->
+      <div class="cake-stage" id="cake-stage">
+        <div class="cake-body">
+          <!-- Bottom Tier -->
+          <div class="cake-tier tier-bottom"></div>
+          <!-- Top Tier -->
+          <div class="cake-tier tier-top"></div>
+          <!-- Candles Wrap -->
+          <div class="candles-wrap">
+            <div class="candle">
+              <div class="wick"></div>
+              <div class="flame" id="flame-1"></div>
+              <div class="smoke"></div>
+            </div>
+            <div class="candle">
+              <div class="wick"></div>
+              <div class="flame" id="flame-2"></div>
+              <div class="smoke"></div>
+            </div>
+            <div class="candle">
+              <div class="wick"></div>
+              <div class="flame" id="flame-3"></div>
+              <div class="smoke"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cake-instruction" id="cake-status">Make a wish & blow the candles! 🎂</div>
+      <button class="cake-btn" id="cake-btn">
+        <span>🌬️</span> Blow the Candles
+      </button>
+    </section>
+
+    <!-- SECTION 2: 4-YEAR FRIENDSHIP MILESTONE & FLIP CARDS -->
+    <section class="friendship-section">
+      <div class="section-tag">MEMORABLE JOURNEY</div>
+      <h2 class="section-title">Celebrating 4 Golden Years 💫</h2>
+      <p class="section-lead">
+        From the very first day to today, having you as a friend has been one of life's best blessings. Here is a look back at our bond!
+      </p>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Years of Bond</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">48</div>
+          <div class="stat-label">Months of Smiles</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1,460+</div>
+          <div class="stat-label">Days of Support</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Memories & Laughs</div>
+        </div>
+      </div>
+
+      <!-- 3D Journey Flip Cards -->
+      <div class="journey-timeline">
+
+        <!-- Year 1 -->
+        <div class="journey-card-3d" data-card="1">
+          <div class="journey-card-inner">
+            <div class="journey-front">
+              <div class="journey-badge">🌱 YEAR 1 • 2022-2023</div>
+              <div class="journey-title">Kaha Se Shuru Hua Ye Safar...</div>
+              <div class="journey-teaser">Pehli baar jab baat shuru hui thi, ek gentle aur sweet bonding bani thi...</div>
+              <div class="journey-tap-hint"><span>👆 Tap to reveal note</span></div>
+            </div>
+            <div class="journey-back">
+              <div class="journey-back-note">
+                "Pehli baar jab hum mile aur baatein shuru hui, mujhe pata bhi nahi tha ki tum meri life ki sabse special aur trusted dost ban jaogi. Tumhari warmth ne day-1 se impress kiya!"
+              </div>
+              <div class="journey-back-sign">Always Grateful 💖</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year 2 -->
+        <div class="journey-card-3d" data-card="2">
+          <div class="journey-card-inner">
+            <div class="journey-front">
+              <div class="journey-badge">✨ YEAR 2 • 2023-2024</div>
+              <div class="journey-title">Inside Jokes & Endless Talks</div>
+              <div class="journey-teaser">Jab har chhoti-badi baat share hona shuru hui aur dosti aur gehri hui...</div>
+              <div class="journey-tap-hint"><span>👆 Tap to reveal note</span></div>
+            </div>
+            <div class="journey-back">
+              <div class="journey-back-note">
+                "Bina matlab ke hasna, random gossips, ek doosre ko samjhana... Har musibat me tumhara sunna aur sath dena meri sabse badi strength ban gaya."
+              </div>
+              <div class="journey-back-sign">Unstoppable Laughs 🌸</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year 3 -->
+        <div class="journey-card-3d" data-card="3">
+          <div class="journey-card-inner">
+            <div class="journey-front">
+              <div class="journey-badge">🛡️ YEAR 3 • 2024-2025</div>
+              <div class="journey-title">The Pillar of Strength</div>
+              <div class="journey-teaser">Har mood swing aur mushkil waqt me ek sacche dost ki tarah khade rehna...</div>
+              <div class="journey-tap-hint"><span>👆 Tap to reveal note</span></div>
+            </div>
+            <div class="journey-back">
+              <div class="journey-back-note">
+                "Zindagi me chahe kitne bhi ups & downs aaye ho, tumne hamesha positively support kiya. Log aate jaate hain, par tum hamesha constant rahi!"
+              </div>
+              <div class="journey-back-sign">Pure Trust 💫</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Year 4 -->
+        <div class="journey-card-3d" data-card="4">
+          <div class="journey-card-inner">
+            <div class="journey-front">
+              <div class="journey-badge">👑 YEAR 4 • 2025-2026</div>
+              <div class="journey-title">4 Saal Ka अटूट Bandhan</div>
+              <div class="journey-teaser">Aaj 4 saal poore hone par ye dosti aur bhi zyada precious hai...</div>
+              <div class="journey-tap-hint"><span>👆 Tap to reveal note</span></div>
+            </div>
+            <div class="journey-back">
+              <div class="journey-back-note">
+                "4 Saal ho gaye Tanya! Aur aaj bhi tum wahi kind, innocent aur caring Tanya ho. I wish hamari ye dosti aage bhi aisi hi mazboot aur evergreen rahe!"
+              </div>
+              <div class="journey-back-sign">4 Years & Beyond 🥂</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3: 3D INTERACTIVE PHOTO CAROUSEL -->
+    <section class="carousel-section">
+      <div class="section-tag">MEMORIES IN 3D</div>
+      <h2 class="section-title">Tanya's Hall of Moments 📸</h2>
+      <p class="section-lead">
+        Swipe or drag to revolve the 3D gallery of your best smiles!
+      </p>
+
+      <div class="carousel-viewport" id="carousel-viewport">
+        <div class="carousel-cylinder" id="carousel-cylinder">
+
+          <!-- Photo 1 -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="assets/images/tanya_traditional.jpg" alt="Tanya in traditional dress" loading="lazy">
+            </div>
+            <div class="polaroid-caption">Pure Elegance ✨</div>
+          </div>
+
+          <!-- Photo 2 -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="assets/images/tanya_sitting_smile.jpg" alt="Tanya smiling" loading="lazy">
+            </div>
+            <div class="polaroid-caption">Million Dollar Smile 🌸</div>
+          </div>
+
+          <!-- Photo 3 -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="assets/images/tanya_hearts.jpg" alt="Tanya selfie with hearts" loading="lazy">
+            </div>
+            <div class="polaroid-caption">Hearts For Tanya 💕</div>
+          </div>
+
+          <!-- Photo 4 -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="assets/images/tanya_flower_crown.jpg" alt="Tanya flower crown" loading="lazy">
+            </div>
+            <div class="polaroid-caption">The Birthday Queen 👑</div>
+          </div>
+
+          <!-- Photo 5 -->
+          <div class="polaroid-card">
+            <div class="polaroid-img-wrap">
+              <img src="assets/images/tanya_story.jpg" alt="Birthday story recap" loading="lazy">
+            </div>
+            <div class="polaroid-caption">4 Years & Forever 🎂</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="carousel-controls">
+        <button class="carousel-arrow" id="carousel-prev" aria-label="Previous photo">◀</button>
+        <span class="carousel-hint">Swipe or Drag to Rotate</span>
+        <button class="carousel-arrow" id="carousel-next" aria-label="Next photo">▶</button>
+      </div>
+    </section>
+
+    <!-- SECTION 4: 3D WAX-SEALED SECRET LETTER -->
+    <section class="letter-section">
+      <div class="section-tag">SPECIAL WISH</div>
+      <h2 class="section-title">A Heartfelt Note For You 💌</h2>
+      <p class="section-lead">
+        Tap the golden wax seal below to open your personalized birthday letter.
+      </p>
+
+      <div class="envelope-stage">
+        <div class="envelope" id="envelope">
+          <div class="envelope-flap-top"></div>
+          <div class="envelope-front-pocket"></div>
+          <div class="wax-seal" id="wax-seal">T</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: SURPRISE 3D GIFT BOX -->
+    <section class="gift-section">
+      <div class="section-tag">POP THE SURPRISE</div>
+      <h2 class="section-title">Unwrap Your Birthday Gift 🎁</h2>
+      <p class="section-lead" id="gift-status">
+        Tap on the gift box to unlock compliments and wishes!
+      </p>
+
+      <div class="gift-box-wrap" id="gift-box">
+        <div class="gift-box">
+          <div class="gift-cube">
+            <div class="ribbon-v"></div>
+            <div class="ribbon-h"></div>
+          </div>
+          <div class="gift-lid">
+            <div class="gift-bow"></div>
+            <div class="ribbon-v"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliments Floating Pills -->
+      <div class="compliments-grid">
+        <div class="compliment-pill">🌟 The Purest Heart</div>
+        <div class="compliment-pill">🌸 Beautiful Soul Inside & Out</div>
+        <div class="compliment-pill">🤝 The Most Loyal Friend</div>
+        <div class="compliment-pill">💫 4 Years of Endless Respect</div>
+        <div class="compliment-pill">🚀 May All Your Dreams Come True</div>
+        <div class="compliment-pill">🎉 Keep Smiling Always!</div>
+      </div>
+    </section>
+
+    <!-- FOOTER: CREDITS & WISHES -->
+    <footer class="footer-wrap">
+      <p class="footer-quote">
+        "Some friendships are written in the stars, and these 4 years have been nothing short of magical."
+      </p>
+      <div class="footer-badge">
+        Crafted with <span class="heart-beat">❤️</span> specially for Tanya on her Birthday
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ========================================================
+       MODAL: FULL HEARTFELT LETTER SHEET
+       ======================================================== -->
+  <div class="letter-sheet-modal" id="letter-modal">
+    <div class="letter-sheet">
+      <button class="letter-close" id="letter-close-btn" aria-label="Close letter">✕</button>
+
+      <div class="letter-header">
+        <h3 class="letter-title">Dear Tanya,</h3>
+        <div class="letter-date">October 29 • A Letter of 4 Years</div>
+      </div>
+
+      <div class="letter-body">
+        <p>
+          <strong>Happiest Birthday to one of the most special persons in my life! 🎂🎉</strong>
+        </p>
+        <p>
+          Aaj tumhara birthday hai aur iske sath hi hamari dosti ke lagbhag <strong>4 saal</strong> poore ho chuke hain. In 4 salon me kitna kuch badal gaya, par ek cheez jo hamesha constant rahi — wo hai tumhara soft heart, tumhara caring nature, aur tumhari pyaari si smile.
+        </p>
+        <p>
+          Jab hum pehli baar mile the, to nahi socha tha ki ek din hum itne ache aur close dost banenge. Tum wo insaan ho jisse main bina filter ke koi bhi baat keh sakta hu, jispar bina soche vishwas kar sakta hu. Tumne har waqt meri baat ko samjha aur hamesha ek sachhe dost ki tarah support kiya.
+        </p>
+        <p>
+          Meri rab se bas yahi dua hai ki tumhari zindagi me kabhi kisi cheez ki kami na ho. Tum jo bhi banna chahti ho, jo bhi achieve karna chahti ho, wo sab tumhe mile. Tumhari aankhon me hamesha khushi ke chamak rahe aur chehre par ye pyari muskaan hamesha bani rahe.
+        </p>
+        <p>
+          Thank you for being my constant support, my gossip partner, and the best friend anyone could ever ask for. Cheers to 4 golden years, and to a lifetime of more memories together! 🥂✨
+        </p>
+      </div>
+
+      <div class="letter-signature">
+        With Best Wishes & Pure Friendship,<br>
+        Your Best Friend Always ❤️
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL: PHOTO LIGHTBOX PREVIEW
+       ======================================================== -->
+  <div class="photo-modal" id="photo-modal">
+    <div class="photo-modal-card">
+      <button class="photo-close-btn" id="photo-close-btn" aria-label="Close photo">✕</button>
+      <div class="photo-modal-img-wrap">
+        <img id="photo-modal-img" src="" alt="Tanya Memory">
+      </div>
+      <div class="photo-modal-caption" id="photo-modal-caption"></div>
+      <button class="photo-heart-btn" id="photo-heart-btn">
+        <span>💖</span> Tap to Send Love
+      </button>
+    </div>
+  </div>
+
+  <!-- Vendor Scripts (Local for 100% offline reliability with CDN backup) -->
+  <script src="assets/vendor/three.min.js"></script>
+  <script src="assets/vendor/confetti.browser.min.js"></script>
+
+  <!-- Application Modules -->
+  <script src="js/audio.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/sparkles.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
