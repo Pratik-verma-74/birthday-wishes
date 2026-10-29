@@ -13,3 +13,4 @@ Status: Completed & Pushed to GitHub
 [x] Task 10: Authentic continuous Diwali Rockets & Fireworks simulation engine with interactive triggers
 [x] Task 11: Fixed card 5 & 6 image loading (removed lazy loading, added cache buster & auto fallback)
 [x] Task 12: Added 3 Interactive Golden Scratch & Win Cards with custom blessings from Pratik & pushed to GitHub
+[x] Task 13: High-performance mobile 60fps optimization (removed shadowBlur, removed getImageData lag, GPU acceleration, lightweight 3D)
