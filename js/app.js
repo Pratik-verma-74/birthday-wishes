@@ -124,102 +124,146 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 5. 3D ROTATING PHOTO CAROUSEL
-  let currentCarouselAngle = 0;
+  // 5. 3D ROTATING PHOTO CAROUSEL (Snap-to-Card Engine)
   const cards = document.querySelectorAll('.polaroid-card');
+  const dots = document.querySelectorAll('.carousel-dot');
   const totalCards = cards.length;
-  // Dynamic radius calculated for mobile screens
-  const radius = Math.round((210 / 2) / Math.tan(Math.PI / totalCards)) + 25;
+  const radius = 230; // 3D cylinder depth radius
+  let activeIndex = 0;
+  let autoTimer = null;
 
-  function updateCarousel() {
-    if (!carouselCylinder) return;
-    carouselCylinder.style.transform = `rotateY(${currentCarouselAngle}deg)`;
+  function updateCardDepths() {
+    cards.forEach((card, i) => {
+      // Circular distance from activeIndex
+      const diff = Math.abs(i - activeIndex);
+      const dist = Math.min(diff, totalCards - diff);
+
+      card.classList.remove('active-card', 'side-card', 'back-card');
+      if (dist === 0) {
+        card.classList.add('active-card');
+      } else if (dist === 1) {
+        card.classList.add('side-card');
+      } else {
+        card.classList.add('back-card');
+      }
+    });
+
+    // Update Dots
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === activeIndex);
+    });
   }
 
-  // Position cards in a 3D circle
+  function goToCard(index, playSound = true) {
+    activeIndex = (index + totalCards) % totalCards;
+    const targetAngle = -activeIndex * (360 / totalCards);
+    if (carouselCylinder) {
+      carouselCylinder.style.transform = `rotateY(${targetAngle}deg)`;
+    }
+    updateCardDepths();
+
+    if (playSound && window.soundEngine) {
+      window.soundEngine.playTone(523.25 + (activeIndex * 45), 0.15, 'triangle', 0.18);
+    }
+  }
+
+  // Position cards initially in 3D space
   cards.forEach((card, i) => {
     const angle = (360 / totalCards) * i;
     card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
 
     card.addEventListener('click', () => {
-      window.soundEngine.playTone(659.25, 0.3, 'sine');
-      window.triggerHeartBlast();
+      if (i === activeIndex) {
+        // Open High-Res Lightbox
+        window.soundEngine.playTone(659.25, 0.3, 'sine');
+        window.triggerHeartBlast();
 
-      // Open Lightbox
-      const imgEl = card.querySelector('img');
-      const captionEl = card.querySelector('.polaroid-caption');
-      if (photoModal && imgEl && captionEl) {
-        photoModalImg.src = imgEl.src;
-        photoModalCaption.textContent = captionEl.textContent;
-        photoModal.classList.add('show');
+        const fullSrc = card.getAttribute('data-full') || card.querySelector('img').src;
+        const captionEl = card.querySelector('.polaroid-caption');
+        if (photoModal && fullSrc && captionEl) {
+          photoModalImg.src = fullSrc;
+          photoModalCaption.textContent = captionEl.textContent;
+          photoModal.classList.add('show');
+        }
+      } else {
+        // Snap to this card
+        goToCard(i);
       }
     });
   });
 
+  // Dots click
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => goToCard(i));
+  });
+
   if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      currentCarouselAngle -= (360 / totalCards);
-      updateCarousel();
-      window.soundEngine.playTone(523.25, 0.15, 'triangle');
-    });
+    nextBtn.addEventListener('click', () => goToCard(activeIndex + 1));
   }
 
   if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-      currentCarouselAngle += (360 / totalCards);
-      updateCarousel();
-      window.soundEngine.playTone(523.25, 0.15, 'triangle');
-    });
+    prevBtn.addEventListener('click', () => goToCard(activeIndex - 1));
   }
 
-  // Touch Swipe & Drag for Carousel
+  // Smooth Auto-Play (Advances every 4 seconds)
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoTimer = setInterval(() => {
+      goToCard(activeIndex + 1, false);
+    }, 4000);
+  }
+
+  function stopAutoPlay() {
+    if (autoTimer) {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
+  }
+
+  // Touch Swipe for Carousel
   let startX = 0;
-  let isDragging = false;
+  let startY = 0;
+  let isSwiping = false;
   const carouselViewport = document.getElementById('carousel-viewport');
 
   if (carouselViewport) {
     carouselViewport.addEventListener('touchstart', (e) => {
       if (e.touches.length === 1) {
         startX = e.touches[0].clientX;
-        isDragging = true;
+        startY = e.touches[0].clientY;
+        isSwiping = true;
+        stopAutoPlay();
       }
     }, { passive: true });
 
     carouselViewport.addEventListener('touchmove', (e) => {
-      if (!isDragging || e.touches.length !== 1) return;
+      if (!isSwiping || e.touches.length !== 1) return;
       const diffX = e.touches[0].clientX - startX;
-      if (Math.abs(diffX) > 40) {
+      const diffY = e.touches[0].clientY - startY;
+
+      // Only trigger if horizontal swipe is greater than vertical scroll
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 0) {
-          currentCarouselAngle += (360 / totalCards);
+          goToCard(activeIndex - 1);
         } else {
-          currentCarouselAngle -= (360 / totalCards);
+          goToCard(activeIndex + 1);
         }
-        updateCarousel();
-        window.soundEngine.playTone(587.33, 0.15, 'triangle');
-        isDragging = false;
+        isSwiping = false;
       }
     }, { passive: true });
 
     carouselViewport.addEventListener('touchend', () => {
-      isDragging = false;
+      isSwiping = false;
+      startAutoPlay();
     });
+
+    carouselViewport.addEventListener('mouseenter', stopAutoPlay);
+    carouselViewport.addEventListener('mouseleave', startAutoPlay);
   }
 
-  // Auto-rotate carousel slowly
-  let autoRotateInterval = setInterval(() => {
-    currentCarouselAngle -= 0.25;
-    updateCarousel();
-  }, 50);
-
-  if (carouselViewport) {
-    carouselViewport.addEventListener('pointerenter', () => clearInterval(autoRotateInterval));
-    carouselViewport.addEventListener('pointerleave', () => {
-      autoRotateInterval = setInterval(() => {
-        currentCarouselAngle -= 0.25;
-        updateCarousel();
-      }, 50);
-    });
-  }
+  // Initialize first state
+  goToCard(0, false);
+  startAutoPlay();
 
   // 6. 3D WAX SEALED ENVELOPE & LETTER MODAL
   if (envelope) {

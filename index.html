@@ -209,48 +209,48 @@
       <div class="section-tag">MEMORIES IN 3D</div>
       <h2 class="section-title">Tanya's Hall of Moments 📸</h2>
       <p class="section-lead">
-        Swipe or drag to revolve the 3D gallery of your best smiles!
+        Swipe or tap arrows to view each memory. Tap any photo to see full picture!
       </p>
 
       <div class="carousel-viewport" id="carousel-viewport">
         <div class="carousel-cylinder" id="carousel-cylinder">
 
           <!-- Photo 1 -->
-          <div class="polaroid-card">
+          <div class="polaroid-card" data-index="0" data-full="assets/images/tanya_traditional.jpg">
             <div class="polaroid-img-wrap">
-              <img src="assets/images/tanya_traditional.jpg" alt="Tanya in traditional dress" loading="lazy">
+              <img src="assets/images/tanya_traditional_card.jpg" alt="Tanya in traditional dress" loading="lazy">
             </div>
             <div class="polaroid-caption">Pure Elegance ✨</div>
           </div>
 
           <!-- Photo 2 -->
-          <div class="polaroid-card">
+          <div class="polaroid-card" data-index="1" data-full="assets/images/tanya_sitting_smile.jpg">
             <div class="polaroid-img-wrap">
-              <img src="assets/images/tanya_sitting_smile.jpg" alt="Tanya smiling" loading="lazy">
+              <img src="assets/images/tanya_sitting_smile_card.jpg" alt="Tanya smiling" loading="lazy">
             </div>
             <div class="polaroid-caption">Million Dollar Smile 🌸</div>
           </div>
 
           <!-- Photo 3 -->
-          <div class="polaroid-card">
+          <div class="polaroid-card" data-index="2" data-full="assets/images/tanya_hearts.jpg">
             <div class="polaroid-img-wrap">
-              <img src="assets/images/tanya_hearts.jpg" alt="Tanya selfie with hearts" loading="lazy">
+              <img src="assets/images/tanya_hearts_card.jpg" alt="Tanya selfie with hearts" loading="lazy">
             </div>
             <div class="polaroid-caption">Hearts For Tanya 💕</div>
           </div>
 
           <!-- Photo 4 -->
-          <div class="polaroid-card">
+          <div class="polaroid-card" data-index="3" data-full="assets/images/tanya_flower_crown.jpg">
             <div class="polaroid-img-wrap">
-              <img src="assets/images/tanya_flower_crown.jpg" alt="Tanya flower crown" loading="lazy">
+              <img src="assets/images/tanya_flower_crown_card.jpg" alt="Tanya flower crown" loading="lazy">
             </div>
             <div class="polaroid-caption">The Birthday Queen 👑</div>
           </div>
 
           <!-- Photo 5 -->
-          <div class="polaroid-card">
+          <div class="polaroid-card" data-index="4" data-full="assets/images/tanya_story.jpg">
             <div class="polaroid-img-wrap">
-              <img src="assets/images/tanya_story.jpg" alt="Birthday story recap" loading="lazy">
+              <img src="assets/images/tanya_story_card.jpg" alt="Birthday story recap" loading="lazy">
             </div>
             <div class="polaroid-caption">4 Years & Forever 🎂</div>
           </div>
@@ -258,12 +258,19 @@
         </div>
       </div>
 
-      <!-- Controls -->
+      <!-- Controls & Dots -->
       <div class="carousel-controls">
         <button class="carousel-arrow" id="carousel-prev" aria-label="Previous photo">◀</button>
-        <span class="carousel-hint">Swipe or Drag to Rotate</span>
+        <div class="carousel-dots" id="carousel-dots">
+          <span class="carousel-dot active" data-index="0"></span>
+          <span class="carousel-dot" data-index="1"></span>
+          <span class="carousel-dot" data-index="2"></span>
+          <span class="carousel-dot" data-index="3"></span>
+          <span class="carousel-dot" data-index="4"></span>
+        </div>
         <button class="carousel-arrow" id="carousel-next" aria-label="Next photo">▶</button>
       </div>
+      <div class="carousel-hint">Swipe left/right or tap arrows to navigate</div>
     </section>
 
     <!-- SECTION 4: 3D WAX-SEALED SECRET LETTER -->
