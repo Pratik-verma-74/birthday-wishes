@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cake Elements
   const candleFlames = document.querySelectorAll('.flame');
   const cakeBtn = document.getElementById('cake-btn');
+  const diwaliBtn = document.getElementById('diwali-btn');
   const cakeStatus = document.getElementById('cake-status');
 
   // Envelope & Letter Elements
@@ -110,6 +111,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (cakeBtn) {
     cakeBtn.addEventListener('click', blowCandles);
+  }
+  if (diwaliBtn) {
+    diwaliBtn.addEventListener('click', () => {
+      window.soundEngine.playPopper();
+      window.soundEngine.playCheer();
+      if (typeof window.triggerGrandDiwaliShow === 'function') {
+        window.triggerGrandDiwaliShow();
+      }
+      diwaliBtn.innerHTML = '<span>✨</span> Bursting! 🎆';
+      setTimeout(() => {
+        diwaliBtn.innerHTML = '<span>🎆</span> Diwali Rockets ✨';
+      }, 2000);
+    });
   }
   candleFlames.forEach(flame => {
     flame.addEventListener('click', blowCandles);
