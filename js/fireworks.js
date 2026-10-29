@@ -22,7 +22,7 @@
   // State
   const rockets = [];
   const particles = [];
-  const MAX_PARTICLES = 450;
+  const MAX_PARTICLES = 140; // Mobile-optimized cap for buttery smooth 60fps
 
   // Festive Diwali Palette
   const colorPalettes = [
@@ -73,12 +73,11 @@
 
     draw(ctx) {
       ctx.save();
-      // Draw glowing trail
-      ctx.lineWidth = 3;
+      // Draw glowing trail with fast additive blending (no expensive shadowBlur)
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.lineWidth = 2.5;
       ctx.lineCap = 'round';
       ctx.strokeStyle = this.primaryColor;
-      ctx.shadowColor = this.primaryColor;
-      ctx.shadowBlur = 10;
 
       for (let i = 0; i < this.trail.length - 1; i++) {
         const p1 = this.trail[i];
@@ -94,7 +93,7 @@
       ctx.globalAlpha = 1;
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -139,11 +138,10 @@
     draw(ctx) {
       if (this.alpha <= 0) return;
       ctx.save();
-      const currentAlpha = this.flicker && Math.random() > 0.4 ? this.alpha * 0.5 : this.alpha;
+      ctx.globalCompositeOperation = 'lighter';
+      const currentAlpha = this.flicker && Math.random() > 0.4 ? this.alpha * 0.6 : this.alpha;
       ctx.globalAlpha = Math.max(0, currentAlpha);
       ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 8;
 
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
@@ -200,17 +198,13 @@
     rockets.push(new Rocket(startX, startY, destX, destY));
   }
 
-  // 4. PERIODIC AUTO LAUNCH (Continuous Diwali Festival)
+  // 4. PERIODIC AUTO LAUNCH (Smooth & Battery Friendly)
   let autoRocketTimer = null;
   function startAutoRockets() {
     function scheduleNext() {
-      const delay = 1400 + Math.random() * 1600; // Launch every 1.5 - 3 seconds
+      const delay = 2600 + Math.random() * 2200; // Launch every 2.6 - 4.8 seconds
       autoRocketTimer = setTimeout(() => {
-        // Launch single or double rockets
         launchRocket();
-        if (Math.random() > 0.6) {
-          setTimeout(() => launchRocket(), 300);
-        }
         scheduleNext();
       }, delay);
     }

@@ -27,10 +27,10 @@
     renderer = new THREE.WebGLRenderer({
       canvas: canvas,
       alpha: true,
-      antialias: true,
-      powerPreference: 'high-performance'
+      antialias: false, // Antialias false saves massive mobile GPU fillrate
+      powerPreference: 'low-power'
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(1.0); // 1.0 DPR runs silky smooth at 60fps on all phones
     renderer.setSize(window.innerWidth, window.innerHeight);
   } catch (err) {
     console.warn("WebGL not supported or restricted, falling back to CSS background", err);
@@ -92,9 +92,8 @@
     })
   ];
 
-  const heartsGroup = new THREE.Group();
-  const heartsData = [];
-  const heartCount = 18;
+  heartsGroup = new THREE.Group();
+  const heartCount = 8; // Optimized for mobile 60fps
 
   for (let i = 0; i < heartCount; i++) {
     const mat = materials[i % materials.length];
@@ -124,9 +123,9 @@
   }
   scene.add(heartsGroup);
 
-  // 2. Cosmic Stardust Particles (600 Points)
+  // 2. Cosmic Stardust Particles (Lightweight Constellation)
   const starGeo = new THREE.BufferGeometry();
-  const starCount = 500;
+  const starCount = 120;
   const starPositions = new Float32Array(starCount * 3);
   const starColors = new Float32Array(starCount * 3);
 
@@ -159,7 +158,7 @@
     blending: THREE.AdditiveBlending
   });
 
-  const starField = new THREE.Points(starGeo, starMat);
+  starField = new THREE.Points(starGeo, starMat);
   scene.add(starField);
 
   // Parallax handling for mobile touch & gyro

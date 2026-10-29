@@ -94,53 +94,44 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
 
+    let lastX = null, lastY = null;
+    let totalScratchDistance = 0;
+
     function scratch(x, y) {
       if (isRevealed) return;
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
-      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.arc(x, y, 24, 0, Math.PI * 2);
       ctx.fill();
+
+      if (lastX !== null && lastY !== null) {
+        const dist = Math.hypot(x - lastX, y - lastY);
+        totalScratchDistance += dist;
+      }
+      lastX = x;
+      lastY = y;
+
+      // Ultra-fast zero-lag threshold (No expensive getImageData)
+      if (totalScratchDistance > 550 && !isRevealed) {
+        revealCard();
+      }
     }
 
-    let scratchCheckThrottle = 0;
+    function revealCard() {
+      isRevealed = true;
+      canvas.style.transition = 'opacity 0.5s ease';
+      canvas.style.opacity = '0';
+      setTimeout(() => {
+        canvas.style.pointerEvents = 'none';
+      }, 500);
 
-    function checkRevealedRatio() {
-      if (isRevealed) return;
-      scratchCheckThrottle++;
-      if (scratchCheckThrottle % 6 !== 0) return; // Check every 6 moves for 60fps performance
-
-      try {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imgData.data;
-        let transparentPixels = 0;
-        const totalSampled = data.length / 16; // Sample every 4th pixel for speed
-
-        for (let i = 3; i < data.length; i += 16) {
-          if (data[i] === 0) transparentPixels++;
-        }
-
-        const ratio = transparentPixels / totalSampled;
-        if (ratio > 0.42) {
-          // Unlocked!
-          isRevealed = true;
-          canvas.style.transition = 'opacity 0.6s ease';
-          canvas.style.opacity = '0';
-          setTimeout(() => {
-            canvas.style.pointerEvents = 'none';
-          }, 600);
-
-          // Celebrate
-          if (window.soundEngine) {
-            window.soundEngine.playPopper();
-            window.soundEngine.playGlissando();
-          }
-          if (window.triggerHeartBlast) {
-            window.triggerHeartBlast();
-          }
-        }
-      } catch (err) {
-        console.warn('Scratch check error', err);
+      // Celebrate
+      if (window.soundEngine) {
+        window.soundEngine.playPopper();
+        window.soundEngine.playGlissando();
+      }
+      if (window.triggerHeartBlast) {
+        window.triggerHeartBlast();
       }
     }
 
@@ -148,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.addEventListener('pointerdown', (e) => {
       isDrawing = true;
       const { x, y } = getCoords(e);
+      lastX = x;
+      lastY = y;
       scratch(x, y);
       if (window.soundEngine) {
         window.soundEngine.playTone(600 + Math.random() * 200, 0.05, 'triangle', 0.05);
@@ -158,17 +151,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDrawing) return;
       const { x, y } = getCoords(e);
       scratch(x, y);
-      checkRevealedRatio();
     });
 
     window.addEventListener('pointerup', () => {
       isDrawing = false;
+      lastX = null;
+      lastY = null;
     });
 
     canvas.addEventListener('touchstart', (e) => {
       e.preventDefault();
       isDrawing = true;
       const { x, y } = getCoords(e);
+      lastX = x;
+      lastY = y;
       scratch(x, y);
     }, { passive: false });
 
@@ -177,11 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDrawing) return;
       const { x, y } = getCoords(e);
       scratch(x, y);
-      checkRevealedRatio();
     }, { passive: false });
 
     canvas.addEventListener('touchend', () => {
       isDrawing = false;
+      lastX = null;
+      lastY = null;
     });
   });
 });
+
