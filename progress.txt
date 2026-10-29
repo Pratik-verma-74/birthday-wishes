@@ -11,3 +11,4 @@ Status: Completed & Verified
 [x] Task 8: Verification, Live Testing via Local Server, CodeRabbit Review & Commit
 [x] Task 9: Personalized from Pratik & added new 6th friend memory photo
 [x] Task 10: Authentic continuous Diwali Rockets & Fireworks simulation engine with interactive triggers
+[x] Task 11: Fixed card 5 & 6 image loading (removed lazy loading, added cache buster & auto fallback)
